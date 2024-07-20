@@ -1,15 +1,30 @@
-import mongoose from "mongoose";
-import {destinoSchema} from "./Destino.js";
+import mongoose from 'mongoose';
 
 const atrativoSchema = new mongoose.Schema({
   destinoId: {
-    type: destinoSchema
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Destino',
+    required: true
   },
-  nome: String,
-  tipo: String,
-  descricao: String,
-  dicas: String
+  nome: {
+    type: String,
+    required: true
+  },
+  tipo: {
+    type: String,
+    required: true
+  },
+  descricao: {
+    type: String,
+    required: true
+  },
+  dicas: {
+    type: String,
+    required: true
+  }
 });
+
+const AtrativoModel = mongoose.model('Atrativo', atrativoSchema);
 
 class Atrativo {
   constructor(destinoId, nome, tipo, descricao, dicas) {
@@ -28,8 +43,14 @@ class Atrativo {
     const atrativo = new AtrativoModel(this);
     return await atrativo.save();
   }
+
+  static async updateById(id, updateData) {
+    return await AtrativoModel.findByIdAndUpdate(id, updateData, { new: true });
+  }
+
+  static async deleteById(id) {
+    return await AtrativoModel.findByIdAndDelete(id);
+  }
 }
 
-const Atrativo = mongoose.model('Atrativo', atrativoSchema);
-
-module.exports = Atrativo;
+export default Atrativo;

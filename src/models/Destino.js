@@ -1,14 +1,31 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const destinoSchema = new mongoose.Schema({
-  nome: String,
-  descricao: String,
-  imagem: String,
+  nome: {
+    type: String,
+    required: true
+  },
+  descricao: {
+    type: String,
+    required: true
+  },
+  imagem: {
+    type: String,
+    required: true
+  },
   localizacao: {
-    lat: Number,
-    lng: Number
+    lat: {
+      type: Number,
+      required: true
+    },
+    lng: {
+      type: Number,
+      required: true
+    }
   }
 });
+
+const DestinoModel = mongoose.model('Destino', destinoSchema);
 
 class Destino {
   constructor(nome, descricao, imagem, localizacao) {
@@ -30,11 +47,15 @@ class Destino {
     const destino = new DestinoModel(this);
     return await destino.save();
   }
+
+  static async updateById(id, updateData) {
+    return await DestinoModel.findByIdAndUpdate(id, updateData, { new: true });
+  }
+
+  static async deleteById(id) {
+    return await DestinoModel.findByIdAndDelete(id);
+  }
 }
 
-
-const Destino = mongoose.model('Destino', destinoSchema);
-
-module.exports = {Destino, destinoSchema};
-
-
+export { destinoSchema };
+export default Destino;
