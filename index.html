@@ -1,0 +1,27 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Turístico do Maranhão</title>
+  <link rel="stylesheet" href="public/css/styles.css">
+</head>
+<body>
+  <h1>Mapa dos Destinos Turísticos do Maranhão</h1>
+  <div id="map" style="height: 500px; width: 100%;"></div>
+  
+  <form id="destinoForm">
+    <h2>Adicionar Destino</h2>
+    <input type="text" id="nome" placeholder="Nome" required>
+    <textarea id="descricao" placeholder="Descrição" required></textarea>
+    <input type="text" id="imagem" placeholder="URL da Imagem" required>
+    <input type="text" id="lat" placeholder="Latitude" required>
+    <input type="text" id="lng" placeholder="Longitude" required>
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+  <script src="public/js/map.js"></script>
+</body>
+</html>
