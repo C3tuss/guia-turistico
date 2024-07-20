@@ -35,6 +35,6 @@ class Destino {
 
 const Destino = mongoose.model('Destino', destinoSchema);
 
-module.exports = Destino;
+module.exports = {Destino, destinoSchema};
 
 

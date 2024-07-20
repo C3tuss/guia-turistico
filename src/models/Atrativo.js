@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
+import {destinoSchema} from "./Destino.js";
 
 const atrativoSchema = new mongoose.Schema({
   destinoId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Destino'
+    type: destinoSchema
   },
   nome: String,
   tipo: String,
