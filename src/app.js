@@ -1,5 +1,6 @@
 import express from "express";
-import bodyParser from "body-parser";
+import path from 'path';
+import { fileURLToPath } from "url";
 import conectaNaDatabase from "./configs/dbConnection.js";
 import routes from "./routes/index.js";
 
@@ -17,5 +18,9 @@ conexao.once("open", () => {
 
 const app = express();
 routes(app);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'public')));
 
 export default app;

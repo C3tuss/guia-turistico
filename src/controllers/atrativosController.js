@@ -1,6 +1,16 @@
 import Atrativo from '../models/Atrativo.js';
 
 class AtrativoController {
+
+  static async listarAtrativos(req, res) {
+    try {
+      const listaAtrativos = await Atrativo.getAll();
+      res.status(200).json(listaAtrativos);
+    } catch (erro) {
+      res.status(500).json({ message: `${erro.message} - falha na requisição` });
+    }
+  }
+
   static async listarAtrativosPorDestino(req, res) {
     try {
       const destinoId = req.params.destinoId;
