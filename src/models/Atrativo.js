@@ -35,6 +35,10 @@ class Atrativo {
     this.dicas = dicas;
   }
 
+  static async getAll() {
+    return await AtrativoModel.find();
+  }
+
   static async getByDestinoId(destinoId) {
     return await AtrativoModel.find({ destinoId });
   }
