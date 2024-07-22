@@ -1,9 +1,16 @@
 import express from "express";
 import path from 'path';
+import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
 import conectaNaDatabase from "./configs/dbConnection.js";
 import routes from "./routes/index.js";
 
+const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.json());
 
 const conexao = await conectaNaDatabase();
 
@@ -16,11 +23,7 @@ conexao.once("open", () => {
 });
 
 
-const app = express();
 routes(app);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public')));
 
 export default app;

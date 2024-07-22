@@ -13,13 +13,20 @@ function initMap() {
     .then(destinos => {
       destinos.forEach(destino => {
         const marker = new google.maps.Marker({
-          position: destino.localizacao,
+          position: {
+            lat: destino.localizacao.lat,
+            lng: destino.localizacao.lng
+          },
           map: map,
           title: destino.nome,
         });
 
         const infoWindow = new google.maps.InfoWindow({
-          content: `<h3>${destino.nome}</h3><p>${destino.descricao}</p><img src="${destino.imagem}" alt="${destino.nome}" style="width:100px;height:auto;">`,
+          content: `
+            <h3>${destino.nome}</h3>
+            <p>${destino.descricao}</p>
+            <img src="${destino.imagem.replace('./', '/')}" alt="${destino.nome}" style="width:100px;height:auto;">
+          `,
         });
 
         marker.addListener('click', () => {
