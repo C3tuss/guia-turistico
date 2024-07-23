@@ -13,24 +13,31 @@ function initMap() {
     .then(destinos => {
       destinos.forEach(destino => {
         const marker = new google.maps.Marker({
-          position: {
-            lat: destino.localizacao.lat,
-            lng: destino.localizacao.lng
-          },
+          position: destino.localizacao,
           map: map,
           title: destino.nome,
         });
 
         const infoWindow = new google.maps.InfoWindow({
-          content: `
-            <h3>${destino.nome}</h3>
-            <p>${destino.descricao}</p>
-            <img src="${destino.imagem.replace('./', '/')}" alt="${destino.nome}" style="width:100px;height:auto;">
-          `,
+          content: `<h3>${destino.nome}</h3><p>${destino.descricao}</p><img src="${destino.imagem}" alt="${destino.nome}" style="width:100px;height:auto;">`,
         });
 
         marker.addListener('click', () => {
           infoWindow.open(map, marker);
+
+          // Carregar atrativos para o destino clicado
+          fetch(`/api/atrativos/${destino._id}`)
+            .then(response => response.json())
+            .then(atrativos => {
+              let atrativosContent = '<h4>Atrações</h4><ul>';
+              atrativos.forEach(atrativo => {
+                atrativosContent += `<li><b>${atrativo.nome}</b> (${atrativo.tipo}): ${atrativo.descricao} <br> <i>Dicas:</i> ${atrativo.dicas}</li>`;
+              });
+              atrativosContent += '</ul>';
+              infoWindow.setContent(`<h3>${destino.nome}</h3><p>${destino.descricao}</p><img src="${destino.imagem}" alt="${destino.nome}" style="width:100px;height:auto;">${atrativosContent}`);
+              infoWindow.open(map, marker);
+            })
+            .catch(error => console.error('Erro ao carregar atrativos:', error));
         });
       });
     })
