@@ -57,5 +57,5 @@ class Destino {
   }
 }
 
-export { destinoSchema };
+export { destinoSchema, DestinoModel };
 export default Destino;

@@ -1,5 +1,4 @@
-// src/controllers/destinoController.js
-import Destino from '../models/Destino.js';
+import Destino, { DestinoModel } from '../models/Destino.js';
 
 class DestinoController {
   static async listarDestinos(req, res) {
@@ -66,6 +65,26 @@ class DestinoController {
       }
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha ao deletar` });
+    }
+  }
+
+  static async buscarDestinos(req, res) {
+    try {
+      const nome = req.query.nome;
+      if (!nome) {
+        return res.status(400).json({ message: 'Nome não fornecido' });
+      }
+  
+      // Filtra destinos que contêm a palavra-chave no nome
+      const destinos = await DestinoModel.find({
+        nome: new RegExp(nome, 'i') // Pesquisa case-insensitive
+      });
+  
+      console.log('Destinos encontrados:', destinos);
+  
+      res.status(200).json(destinos);
+    } catch (erro) {
+      res.status(500).json({ message: `${erro.message} - falha na busca de destinos` });
     }
   }
 }
