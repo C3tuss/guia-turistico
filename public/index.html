@@ -5,17 +5,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guia Turístico do Maranhão</title>
-  <link rel="stylesheet" href="./public/css/style.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
+
+<!--COMEÇO DO BODY-->
+
 <body>
-  <h1>Mapa dos Destinos Turísticos do Maranhão</h1>
-  
-  <input type="text" id="destinoNome" placeholder="Pesquisar destino">
-  <button onclick="buscarDestinos()">Buscar</button>
-  <ul id="resultadoBusca"></ul>
-  <div id="map" style="height: 500px; width: 100%;"></div>
+  <!-- header começa -->
+  <header>
+    <div class="center__header">
+      <div class="logo"><img src="./images/logoguia.png"></div><!--logo do guia-->
+      <nav class="menu">
+        <a class="menu__link" href="#"> Conheça</a>
+        <a class="menu__link" href="#"> Escolha seu destino</a>
+      </nav><!--menu-->
+    </div><!-- center -->
+  </header>
+  <!-- header termina -->
+
+  <main>
+    <!-- início home section -->
+    <div class="home">
+      <div class="center__home">
+        <h5>A próxima aventura espera por você!</h5>
+        <h1>Explore os Encantos do Maranhão</h1>
+        <p>Viva experiências únicas e encontre os destinos que fazem desse estado um lugar inesquecível.</p>
+        <a href="#search"> Descubra mais</a>
+      </div> <!--conteudo home-->
+    </div>
+    <!-- fim home section -->
+
+    <!-- início da página do mapa -->
+    <div id="search" class="conteudo">
+      <div class="center">
+        <h1 class="conteudo__titulo"> Conheça os destinos turísticos imperdíveis do Maranhão e <span style="color: #0b2661;">aproveite ao máximo</span> sua viagem!
+        </h1>
+        <p class="conteudo__paragrafo">
+          Explore locais encantadores, desde praias paradisíacas e aventuras ao ar livre até imersões na rica cultura local e experiências gastronômicas únicas. Use o mapa para encontrar os pontos turísticos imperdíveis e mergulhe na diversidade e beleza que o Maranhão oferece. Prepare-se para uma viagem inesquecível!
+        </p>
+      </div><!--center-->
+      <div class="configuracao__mapa">
+        <input type="text" id="destinoNome" placeholder="Pesquisar destino">
+        <button onclick="buscarDestinos()">Buscar</button>
+        <ul id="resultadoBusca"></ul>
+        <div id="map" style="height: 500px; width: 100%;"></div>
+      </div><!--configuração__mapa-->
+      <!-- fim da página do mapa -->
+    </div>
+  </main>
+
+<!-- início footer -->
+  <footer>
+    <div class="footer-conteudo">
+        <p> Criado por Alexandre Vilela, Camilly Campos e Paulo Serra. </p>
+    </div>
+  </footer>
 
 </body>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5NV2jsrCZlQjtmF0ooLhrke67uDS8jlM&callback=initMap" async defer></script>
+
+<!-- FIM DO BODY -->
 <script src="./js/map.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5NV2jsrCZlQjtmF0ooLhrke67uDS8jlM&callback=initMap" async defer></script>
 </html>
