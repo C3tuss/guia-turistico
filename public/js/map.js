@@ -61,10 +61,6 @@ function buscarDestinos() {
       if (!response.ok) {
         throw new Error('Erro na resposta da API');
       }
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new TypeError("Resposta não é JSON");
-      }
       return response.json();
     })
     .then(destinos => {
@@ -74,9 +70,8 @@ function buscarDestinos() {
         throw new Error('A resposta da API não é um array');
       }
 
-      // Limpa a lista de resultados da busca e remove os marcadores antigos
+      // Limpa a lista de resultados da busca
       clearSearchResults();
-      clearMarkers();
 
       if (destinos.length > 0) {
         const resultadoBusca = document.getElementById('resultadoBusca');
@@ -108,12 +103,12 @@ function buscarDestinos() {
             infoWindow.open(map, marker);
           });
         });
-      } else {
-        console.log('Nenhum destino encontrado.');
       }
     })
     .catch(error => console.error('Erro ao buscar destinos:', error));
 }
+
+
 
 function clearMarkers() {
   // Remove todos os marcadores do mapa e limpa a lista
