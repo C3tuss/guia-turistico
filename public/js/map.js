@@ -9,7 +9,12 @@ function initMap() {
 
   // Carregar os destinos e adicionar marcadores
   fetch(`${backendUrl}/api/destinos`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na resposta da API');
+      }
+      return response.json();
+    })
     .then(destinos => {
       destinos.forEach(destino => {
         const marker = new google.maps.Marker({
