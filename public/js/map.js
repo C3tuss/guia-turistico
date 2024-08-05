@@ -1,4 +1,6 @@
 const backendUrl = 'https://guia-turistico-pw4m.onrender.com';
+let map;
+let markers = []; // Array para armazenar os marcadores
 
 function initMap() {
   // Inicializa o mapa centrado no Maranhão
@@ -75,11 +77,10 @@ function buscarDestinos() {
       }
 
       // Limpa a lista de resultados da busca
-      clearSearchResults();
+      const resultadoBusca = document.getElementById('resultadoBusca');
+      resultadoBusca.innerHTML = ''; // Limpa a lista de resultados da busca
 
       if (destinos.length > 0) {
-        const resultadoBusca = document.getElementById('resultadoBusca');
-
         destinos.forEach(destino => {
           const listItem = document.createElement('li');
           listItem.textContent = destino.nome;
@@ -97,7 +98,7 @@ function buscarDestinos() {
             title: destino.nome,
           });
 
-          markers.push(marker);
+          markers.push(marker); // Adiciona o marcador ao array
 
           const infoWindow = new google.maps.InfoWindow({
             content: `<h3>${destino.nome}</h3><p>${destino.descricao}</p><img src="${destino.imagem}" alt="${destino.nome}" style="width:100px;height:auto;">`,
@@ -107,19 +108,9 @@ function buscarDestinos() {
             infoWindow.open(map, marker);
           });
         });
+      } else {
+        console.log('Nenhum destino encontrado.');
       }
     })
     .catch(error => console.error('Erro ao buscar destinos:', error));
-}
-
-function clearMarkers() {
-  // Remove todos os marcadores do mapa e limpa a lista
-  markers.forEach(marker => marker.setMap(null));
-  markers = []; // Limpa o array de marcadores
-}
-
-function clearSearchResults() {
-  // Limpa a lista de resultados da busca
-  const resultadoBusca = document.getElementById('resultadoBusca');
-  resultadoBusca.innerHTML = '';
 }
